@@ -28,6 +28,7 @@ void Draw::step() {
 					break;
 				Fragment f;
 				f.points = points;
+				f.types = types;
 				draw(f);
 				break;
 			}
@@ -36,6 +37,7 @@ void Draw::step() {
 					break;
 				if (points.size() > 0) {
 					points.pop_back();
+					types.pop_back();
 				}
 				draw();
 				break;
@@ -45,6 +47,14 @@ void Draw::step() {
 				break;
 			if (event.mouseButton.button == sf::Mouse::Left) {
 				points.push_back({ (double)event.mouseButton.x , (double)event.mouseButton.y});
+				types.push_back(type);
+				draw();
+			}
+			if (event.mouseButton.button == sf::Mouse::Right) {
+				type = !type;
+				if (types.size() > 0) {
+					types.back() = !types.back();
+				}
 				draw();
 			}
 			break;
@@ -52,8 +62,10 @@ void Draw::step() {
 			if (state)
 				break;
 			points.push_back({ (double)event.mouseMove.x , (double)event.mouseMove.y });
+			types.push_back(type);
 			draw();
 			points.pop_back();
+			types.pop_back();
 			break;
 		}
 	}
@@ -79,7 +91,15 @@ void Draw::line(std::vector<Vector2d> f, Color c) {
 
 void Draw::draw() {
 	window->clear();
-	line(points, Color(0, 255, 0));
+	if (points.size() < 1)
+		return;
+	for (int i = 0; i < points.size() - 1; i++) {
+		Color c(0, 255, 0);
+		if (!types[i]) {
+			c = Color(80, 80, 80);
+		}
+		line(points[i], points[i + 1], c);
+	}
 	window->display();
 }
 
@@ -87,10 +107,11 @@ void Draw::draw(Fragment fragment) {
 	config.load("config.conf");
 
 	window->clear();
-	//for (int i = 1; i <= 4; i++) {
-		auto r = fractal(fragment, config.iterations, config);
-		std::cout << "--->" << r.size();
-		line(r, Color(0, 255, 0, 255));
-	//}
+	std::cout << "generating...\n";
+	auto r = fractal(fragment, config.iterations, config);
+	std::cout << "generated " << r.size() << " lines\n";
+	line(r, Color(0, 255, 0, 255));
+	std::cout << "displaying...\n";
 	window->display();
+	std::cout << "done\n\n";
 }

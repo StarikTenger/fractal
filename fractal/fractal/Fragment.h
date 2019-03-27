@@ -6,6 +6,7 @@
 class Fragment {
 public:
 	std::vector<Vector2d> points;
+	std::vector<bool> types;
 	Fragment();
 	~Fragment();
 };

@@ -1,10 +1,11 @@
 ﻿  Draw.cpp
-c:\github\fractal\fractal\fractal\draw.cpp(65): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\github\fractal\fractal\fractal\draw.cpp(66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\github\fractal\fractal\fractal\draw.cpp(75): warning C4018: '<': signed/unsigned mismatch
+c:\github\fractal\fractal\fractal\draw.cpp(77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\github\fractal\fractal\fractal\draw.cpp(96): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  54 of 306 functions (17.6%) were compiled, the rest were copied from previous compilation.
-    5 functions were new in current compilation
-    29 functions had inline decision re-evaluated but remain unchanged
+  0 of 457 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   fractal.vcxproj -> C:\GitHub\fractal\fractal\Release\fractal.exe
