@@ -2,8 +2,8 @@
 #include <iostream>
 
 Draw::Draw() {
-	
-	window = new sf::RenderWindow(sf::VideoMode(600, 600), "Fractal");
+	config.load("config.conf");
+	window = new sf::RenderWindow(sf::VideoMode(config.width, config.height), "Fractal", sf::Style::Close);
 }
 
 Draw::~Draw() {

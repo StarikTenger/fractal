@@ -21,5 +21,11 @@ void Config::load(std::string path) {
 		if (param == "ITERATIONS") {
 			file >> iterations;
 		}
+		if (param == "HEIGHT") {
+			file >> height;
+		}
+		if (param == "WIDTH") {
+			file >> width;
+		}
 	}
 }
