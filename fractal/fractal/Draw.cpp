@@ -12,6 +12,7 @@ Draw::Draw() {
 		squareGrid(config.gridSize);
 		break;
 	}
+	draw();
 }
 
 Draw::~Draw() {
@@ -83,6 +84,20 @@ void Draw::step() {
 				if (points.size() > 0) {
 					points.pop_back();
 					types.pop_back();
+				}
+				draw();
+				break;
+			case sf::Keyboard::R:
+				config.load("config.conf");
+				delete window;
+				window = new sf::RenderWindow(sf::VideoMode(config.width, config.height), "Fractal", sf::Style::Close);
+				switch (config.gridType) {
+				case 3:
+					triangleGrid(config.gridSize);
+					break;
+				case 4:
+					squareGrid(config.gridSize);
+					break;
 				}
 				draw();
 				break;
