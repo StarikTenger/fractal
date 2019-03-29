@@ -1,10 +1,16 @@
 ﻿  Draw.cpp
-c:\github\fractal\fractal\fractal\draw.cpp(77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\github\fractal\fractal\fractal\draw.cpp(78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\github\fractal\fractal\fractal\draw.cpp(87): warning C4018: '<': signed/unsigned mismatch
-c:\github\fractal\fractal\fractal\draw.cpp(96): warning C4018: '<': signed/unsigned mismatch
+c:\github\fractal\fractal\fractal\draw.cpp(22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(23): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(37): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(124): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(125): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(134): warning C4018: '<': signed/unsigned mismatch
+c:\github\fractal\fractal\fractal\draw.cpp(145): warning C4018: '<': signed/unsigned mismatch
+c:\github\fractal\fractal\fractal\draw.cpp(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\github\fractal\fractal\fractal\draw.cpp(159): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating code
-  1 of 457 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 481 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

@@ -27,5 +27,14 @@ void Config::load(std::string path) {
 		if (param == "WIDTH") {
 			file >> width;
 		}
+		if (param == "GRID_SIZE") {
+			file >> gridSize;
+		}
+		if (param == "GRID") {
+			file >> gridType;
+		}
+		if (param == "GRID_STICK_RADIUS") {
+			file >> stickRadius;
+		}
 	}
 }

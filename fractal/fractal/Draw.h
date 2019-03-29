@@ -11,6 +11,7 @@ public:
 	sf::RenderWindow* window;
 	std::vector<Vector2d> points;
 	std::vector<bool> types;
+	std::vector<Vector2d> grid;
 	bool state = 0;
 	bool type = 1;
 	Config config;
@@ -21,5 +22,10 @@ public:
 	void line(std::vector<Vector2d> f, Color c);
 	void draw(Fragment fragment);
 	void draw();
+	void squareGrid(double size);
+	void triangleGrid(double size);
+	Vector2d applyGrid(Vector2d pos);
+	void drawCircle(Vector2d pos, double r, Color c);
+	void drawGrid();
 };
 

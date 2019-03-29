@@ -4,9 +4,54 @@
 Draw::Draw() {
 	config.load("config.conf");
 	window = new sf::RenderWindow(sf::VideoMode(config.width, config.height), "Fractal", sf::Style::Close);
+	switch (config.gridType) {
+	case 3:
+		triangleGrid(config.gridSize);
+		break;
+	case 4:
+		squareGrid(config.gridSize);
+		break;
+	}
 }
 
 Draw::~Draw() {
+}
+
+void Draw::squareGrid(double size) {
+	grid = {};
+	int w = (double(config.width + 1) / size);
+	int h = (double(config.height + 1) / size);
+	for (int x = 0; x < w; x++) {
+		for (int y = 0; y < h; y++) {
+			grid.push_back(Vector2d(x*size, y*size));
+			//std::cout << (x * size) << " " << (y*size) << "\n";
+		}
+	}
+}
+
+void Draw::triangleGrid(double size) {
+	grid = {};
+	double k = sqrt(3) / 2;
+	double sizeVertical = size * k;
+	int w = (config.width + 1) / size;
+	int h = (config.height + 1) / sizeVertical;
+	for (int x = -1; x < w + 1; x++) {
+		for (int y = 0; y < h + 1; y++) {
+			if (y % 2)
+				grid.push_back(Vector2d(x*size, y*sizeVertical));
+			else
+				grid.push_back(Vector2d((x + 0.5)*size, y*sizeVertical));
+		}
+	}
+}
+
+Vector2d Draw::applyGrid(Vector2d pos) {
+	for (auto p : grid) {
+		if (geom::distance(p, pos) < config.stickRadius) {
+			return p;
+		}
+	}
+	return pos;
 }
 
 void Draw::step() {
@@ -46,7 +91,8 @@ void Draw::step() {
 			if (state)
 				break;
 			if (event.mouseButton.button == sf::Mouse::Left) {
-				points.push_back({ (double)event.mouseButton.x , (double)event.mouseButton.y});
+				Vector2d pos = applyGrid({ (double)event.mouseButton.x , (double)event.mouseButton.y });
+				points.push_back(pos);
 				types.push_back(type);
 				draw();
 			}
@@ -61,7 +107,8 @@ void Draw::step() {
 		case sf::Event::MouseMoved:
 			if (state)
 				break;
-			points.push_back({ (double)event.mouseMove.x , (double)event.mouseMove.y });
+			Vector2d pos = applyGrid({ (double)event.mouseMove.x , (double)event.mouseMove.y });
+			points.push_back(pos);
 			types.push_back(type);
 			draw();
 			points.pop_back();
@@ -91,6 +138,8 @@ void Draw::line(std::vector<Vector2d> f, Color c) {
 
 void Draw::draw() {
 	window->clear();
+	drawGrid();
+	//std::cout << grid.size() << "\n";
 	if (points.size() < 1)
 		return;
 	for (int i = 0; i < points.size() - 1; i++) {
@@ -101,6 +150,21 @@ void Draw::draw() {
 		line(points[i], points[i + 1], c);
 	}
 	window->display();
+}
+
+void Draw::drawCircle(Vector2d pos, double r, Color c) {
+	sf::CircleShape shape(r);
+	shape.setOutlineColor(sf::Color(c.r, c.g, c.b, c.a));
+	shape.setFillColor(sf::Color(0, 0, 0, 0));
+	shape.setPosition(pos.x-r, pos.y-r);
+	shape.setOutlineThickness(1);
+	window->draw(shape);
+}
+
+void Draw::drawGrid() {
+	for (auto p : grid) {
+		drawCircle(p, config.stickRadius, Color(50, 50, 50));
+	}
 }
 
 void Draw::draw(Fragment fragment) {
