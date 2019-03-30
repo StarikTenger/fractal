@@ -1,4 +1,5 @@
 #include "Draw.h"
+#include <math.h>
 #include <iostream>
 
 Draw::Draw() {
@@ -22,8 +23,8 @@ void Draw::squareGrid(double size) {
 	grid = {};
 	int w = (double(config.width + 1) / size);
 	int h = (double(config.height + 1) / size);
-	for (int x = 0; x < w; x++) {
-		for (int y = 0; y < h; y++) {
+	for (int x = 0; x < w+1; x++) {
+		for (int y = 0; y < h+1; y++) {
 			grid.push_back(Vector2d(x*size, y*size));
 			//std::cout << (x * size) << " " << (y*size) << "\n";
 		}
@@ -62,6 +63,7 @@ void Draw::step() {
 		switch (event.type) {
 		case sf::Event::Closed:
 			window->close();
+			stop = 1;
 			break;
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
@@ -77,16 +79,7 @@ void Draw::step() {
 				f.types = types;
 				draw(f);
 				break;
-			}
-			case sf::Keyboard::BackSpace:
-				if (state)
-					break;
-				if (points.size() > 0) {
-					points.pop_back();
-					types.pop_back();
-				}
-				draw();
-				break;
+			}				
 			case sf::Keyboard::R:
 				config.load("config.conf");
 				delete window;
@@ -112,22 +105,34 @@ void Draw::step() {
 				draw();
 			}
 			if (event.mouseButton.button == sf::Mouse::Right) {
-				type = !type;
-				if (types.size() > 0) {
-					types.back() = !types.back();
+				if (state)
+					break;
+				if (points.size() > 0) {
+					points.pop_back();
+					types.pop_back();
 				}
 				draw();
+				break;
 			}
 			break;
-		case sf::Event::MouseMoved:
+		case sf::Event::MouseMoved: {
 			if (state)
 				break;
 			Vector2d pos = applyGrid({ (double)event.mouseMove.x , (double)event.mouseMove.y });
-			points.push_back(pos);
-			types.push_back(type);
+			mouse = pos;
 			draw();
-			points.pop_back();
-			types.pop_back();
+			break;
+		}
+		case sf::Event::MouseWheelScrolled:
+			if (state)
+				break;
+			type += int(event.mouseWheelScroll.delta);
+			type = (type + 3) % 3;
+			if (types.size() > 0) {
+				types.back() = type;
+			} 
+			Vector2d pos = applyGrid({ (double)event.mouseWheelScroll.x , (double)event.mouseWheelScroll.y });
+			draw();
 			break;
 		}
 	}
@@ -146,7 +151,16 @@ void Draw::line(Vector2d a, Vector2d b, Color c) {
 void Draw::line(std::vector<Vector2d> f, Color c) {
 	if (f.size() < 1)
 		return;
+	double a = 0;
 	for (int i = 0; i < f.size() - 1; i++) {
+		double d = geom::distance(f[i], f[i + 1]);
+		a += d;
+		if (config.colorDraw) {
+			c = Color(255, 255, 255, 255);
+			c.r = ((int)(sin((double)a / 256) * 256)) % 256;
+			c.g = ((int)(sin((double)a / 256 / 10) * 256)) % 256;
+			c.b = ((int)(sin((double)a / 256 / 100) * 256)) % 256;
+		}
 		line(f[i], f[i + 1], c);
 	}
 }
@@ -154,15 +168,26 @@ void Draw::line(std::vector<Vector2d> f, Color c) {
 void Draw::draw() {
 	window->clear();
 	drawGrid();
-	//std::cout << grid.size() << "\n";
-	if (points.size() < 1)
-		return;
+	if (points.size() > 0)
 	for (int i = 0; i < points.size() - 1; i++) {
 		Color c(0, 255, 0);
-		if (!types[i]) {
-			c = Color(80, 80, 80);
+		if (types[i] == 0) {
+			c = Color(100, 100, 100);
+		}
+		if (types[i] == 2) {
+			c = Color(255, 200, 0);
 		}
 		line(points[i], points[i + 1], c);
+	}
+	if (points.size() > 0) {
+		Color c(0, 255, 0);
+		if (types.back() == 0) {
+			c = Color(100, 100, 100);
+		}
+		if (types.back() == 2) {
+			c = Color(255, 200, 0);
+		}
+		line(points.back(), mouse, c);
 	}
 	window->display();
 }

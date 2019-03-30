@@ -10,10 +10,12 @@ public:
 
 	sf::RenderWindow* window;
 	std::vector<Vector2d> points;
-	std::vector<bool> types;
+	std::vector<int> types;
 	std::vector<Vector2d> grid;
 	bool state = 0;
-	bool type = 1;
+	int stop = 0;
+	int type = 1;
+	Vector2d mouse;
 	Config config;
 	Draw();
 	~Draw();

@@ -36,5 +36,8 @@ void Config::load(std::string path) {
 		if (param == "GRID_STICK_RADIUS") {
 			file >> stickRadius;
 		}
+		if (param == "COLOR_DRAW") {
+			file >> colorDraw;
+		}
 	}
 }

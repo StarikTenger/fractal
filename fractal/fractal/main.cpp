@@ -1,3 +1,4 @@
+
 #include "Draw.h"
 #include "Fragment.h"
 #include <iostream>
@@ -12,10 +13,9 @@ int main() {
 	
 	//auto r = turn(f, { 600, 600 } , { 0, 300 }).points;
 	
-	while (1)
+	while (!draw.stop)
 	{
 		draw.step();
-		
 	}
 
 	return 0;
