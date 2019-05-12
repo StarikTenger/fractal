@@ -10,8 +10,7 @@ To run compilled program download _fractal.zip_
 **R** -  refresh config parametres 
 
 
-<img src="https://cdn.discordapp.com/attachments/444936496135536672/577161242523860993/unknown.png" alt="drawing" width="340"/>
-<img src="https://cdn.discordapp.com/attachments/444936496135536672/577161387344658432/unknown.png" alt="drawing" width="340"/>
+<img src="https://cdn.discordapp.com/attachments/444936496135536672/577161242523860993/unknown.png" alt="drawing" width="340"/> <img src="https://cdn.discordapp.com/attachments/444936496135536672/577161387344658432/unknown.png" alt="drawing" width="340"/>
 
 Every fragment of line is replaced on line itself recursively.
 Grey fragments are not replaced.
