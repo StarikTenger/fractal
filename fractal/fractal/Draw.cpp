@@ -79,8 +79,8 @@ void Draw::step() {
 				f.types = types;
 				draw(f);
 				break;
-			}				
-			case sf::Keyboard::R:
+			}
+			case sf::Keyboard::R: {
 				config.load("config.conf");
 				delete window;
 				window = new sf::RenderWindow(sf::VideoMode(config.width, config.height), "Fractal", sf::Style::Close);
@@ -94,6 +94,35 @@ void Draw::step() {
 				}
 				draw();
 				break;
+			}
+			case sf::Keyboard::Delete: {
+				config.iterations = 1;
+				std::cout << "Iterations value was set to 1\n";
+				break;
+			}
+			case sf::Keyboard::E: {		
+				state = 1;
+				Fragment f;
+				f.points = points;
+				f.types = types;
+				config.iterations++;
+				std::cout << "Initialising step " << config.iterations << "\n";
+				draw(f);
+				break;
+			}
+			case sf::Keyboard::Q: {			
+				state = 1;
+				Fragment f;
+				f.points = points;
+				f.types = types;
+				config.iterations--;
+				if (config.iterations == 0) {
+					config.iterations += 1;
+				}
+				std::cout << "Initialising step " << config.iterations << "\n";
+				draw(f);
+				break;
+			}
 			}
 		case sf::Event::MouseButtonPressed:
 			if (state)
@@ -208,7 +237,7 @@ void Draw::drawGrid() {
 }
 
 void Draw::draw(Fragment fragment) {
-	config.load("config.conf");
+	//config.load("config.conf");
 
 	window->clear();
 	std::cout << "generating...\n";

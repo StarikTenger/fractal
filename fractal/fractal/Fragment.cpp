@@ -4,7 +4,6 @@
 Fragment::Fragment() {
 }
 
-
 Fragment::~Fragment() {
 }
 

@@ -1,19 +1,11 @@
+
 # Fractal
 
-To compile project you need to link _SFML-2.4.2_.<br>
-To run compilled program download _fractal.zip_
+To compile project you need to link _SFML-2.4.2
+To run compiled program download [fractal.zip]( https://github.com/StarikTenger/fractal/blob/master/fractal.zip)
 
-**LEFT MOUSE BUTTON** - add point <br>
-**RIGHT MOUSE BUTTON** - delete last point <br>
-**SPACE** - generate fractal / return to drawing mode <br>
-**SROLL** to change drawing color <br>
-**R** -  refresh config parametres 
-
-
-<img src="https://cdn.discordapp.com/attachments/444936496135536672/577161242523860993/unknown.png" alt="drawing" width="340"/> <img src="https://cdn.discordapp.com/attachments/444936496135536672/577161387344658432/unknown.png" alt="drawing" width="340"/>
-
-Every fragment of line is replaced on line itself recursively.
-Grey fragments are not replaced.
-Orange fragments are replaced on turned up fragment.
-
-You can edit _config.conf_ to change window size, grid parameters (3 - triangle frid, 4 - square grid), number of iterations and line limit 
+This program creates fractal by replacing the fragment of the broken line by the whole line recursively.
+- To add fragment use **LMB**, to delete last use **RMB**
+- To change fragment color use **wheel** (green fragments are replaced in common order, orange ones are replaced by reversed line, grey ones are not replaced)
+- To see the result and return to editor use **space**. 
+- To increase iterations number use **E**, to reduce - **Q**. To set iterations number to 1 use **delete**
